@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -55,18 +56,38 @@ public class Knowledge {
         }
     }
 
-    public void query(){
-        
-    }
-    
+    public void query(List<Map<String, Object>> ext,  List<result> organMap){
+        for(Map<String, Object> zhibiao: ext){
+            String[] s = zhibiao.get("项目名称").toString().split("\\$");
+            if(this.sec.containsKey(s[0])){
+                s[0] = this.sec.get(s[0]).toString();
+            }
+            if(this.thd.containsKey(s[1])){
+                s[1] = this.thd.get(s[1]).toString();
+            }
+            zhibiao.put("项目名称", String.format("%s$%s", s[0], s[1]));
 
-    public static void main(String[] args) {
-        Knowledge kno = new Knowledge();
-        kno.readMain("C:\\Users\\ROG\\Desktop\\aidraw\\src\\main\\resources\\standard");
-        kno.readSec("C:\\Users\\ROG\\Desktop\\aidraw\\src\\main\\resources\\titlestore\\Second.json");
-        kno.readThd("C:\\Users\\ROG\\Desktop\\aidraw\\src\\main\\resources\\titlestore\\Third.json");
-        System.out.println(kno.sum);
-        System.out.println(kno.sec);
-        System.out.println(kno.thd);
+            String[] relatedOrgans = new String[]{};
+            if(this.sum.containsKey(zhibiao.get("项目名称").toString())){
+                relatedOrgans = (String[]) this.sum.get(zhibiao.get("项目名称").toString());
+            }
+            for(String organ: relatedOrgans){
+                boolean found = false;
+                for(result res: organMap){
+                    if(res.title.equals(organ)){
+                        found = true;
+                        res.subrep.add(zhibiao);
+                        break;
+                    }
+                }
+                if(found) continue;
+                organMap.add(new result(){
+                    {
+                        title = organ;
+                        subrep.add(zhibiao);
+                    }
+                });
+            }
+        }
     }
 }
