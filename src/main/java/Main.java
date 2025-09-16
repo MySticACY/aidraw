@@ -1,20 +1,26 @@
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 // 主程序入口
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        File inputFolder = new File("C:/Users/ROG/Desktop/AI_Portrait/sample");
+        File inputFolder = new File("C:\\Users\\ROG\\Desktop\\aidraw\\src\\main\\resources\\sample");
 
-        List<Object> finalExtractList = new ArrayList<>();
+        Knowledge bas = new Knowledge();
+        bas.readMain("C:\\Users\\ROG\\Desktop\\aidraw\\src\\main\\resources\\standard");
+        bas.readSec("C:\\Users\\ROG\\Desktop\\aidraw\\src\\main\\resources\\titlestore\\Second.json");
+        bas.readThd("C:\\Users\\ROG\\Desktop\\aidraw\\src\\main\\resources\\titlestore\\Third.json");
+
+        List<Map<String, Object>> finalExtractList = new ArrayList<>();
         ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
 
         if (!inputFolder.exists() || !inputFolder.isDirectory()) {
@@ -39,6 +45,9 @@ public class Main {
 
         System.out.println("\n--- 所有文件处理完成，最终的JSON列表如下 ---");
         String jsonOutput = objectMapper.writeValueAsString(finalExtractList);
+        List<result> organMapp = new ArrayList<>();
+        bas.query(finalExtractList, organMapp);
+
         System.out.println(jsonOutput);
     }
 }

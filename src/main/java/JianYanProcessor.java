@@ -1,13 +1,14 @@
-import com.fasterxml.jackson.databind.JsonNode;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.databind.JsonNode;
 
 // “检验”报告处理器
 public class JianYanProcessor {
     public static List<JianYanItem> process(JsonNode reportJson) {
         List<JianYanItem> extractList = new ArrayList<>();
         JsonNode basicInfo = reportJson.get("基础信息");
-        String hospital = basicInfo.get("医疗机构").asText();
+        String hospital = basicInfo.get("医院机构").asText();
         String time = basicInfo.get("报告时间").asText();
         String sec_name = basicInfo.get("申请项目").asText();
 
