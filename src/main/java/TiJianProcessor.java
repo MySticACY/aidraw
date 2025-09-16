@@ -12,10 +12,10 @@ public class TiJianProcessor {
         for(String key: data.keySet()){
             if(key.equals("基础信息")){
                 for(String subKey: ((Map<String, Object>)data.get(key)).keySet()){
-                    if(subKey.equals("医院机构")){
+                    if(subKey.equals("医疗机构")){
                         hospital = ((Map<String, Object>)data.get(key)).get(subKey).toString();
                     }
-                    else if(subKey.equals("报告时间")){
+                    else if(subKey.equals("报告日期")){
                         time = ((Map<String, Object>)data.get(key)).get(subKey).toString();
                     }
                 }
