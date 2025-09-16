@@ -7,9 +7,9 @@ import java.util.Map;
 import org.json.JSONObject;
 
 public class Knowledge {
-    private final Map<String, Object> sum = new HashMap<>();
-    private final Map<String, Object> sec = new HashMap<>();
-    private final Map<String, Object> thd = new HashMap<>();
+    public final Map<String, Object> sum = new HashMap<>();
+    public final Map<String, Object> sec = new HashMap<>();
+    public final Map<String, Object> thd = new HashMap<>();
 
     Input io = new Input();
 
