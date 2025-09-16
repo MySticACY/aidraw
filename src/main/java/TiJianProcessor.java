@@ -26,8 +26,8 @@ public class TiJianProcessor {
                     Map<String, Map<String, Object>> record = new java.util.HashMap<>();
                     item.put("项目名称", key + '$' + item.get("项目名称").toString());
                     record.put(key, item);
-                    record.get(key).put("医院机构", hospital);
-                    record.get(key).put("报告时间", time);
+                    record.get(key).put("医疗机构", hospital);
+                    record.get(key).put("报告日期", time);
                     extractList.add(record);
                 }
             }
