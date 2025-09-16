@@ -1,53 +1,29 @@
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-
 // 主程序入口
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        File inputFolder = new File("C:\\Users\\ROG\\Desktop\\aidraw\\src\\main\\resources\\sample");
+        String inputFolder = "C:\\Users\\ROG\\Desktop\\aidraw\\src\\main\\resources\\sample\\pic1.json";
 
         Knowledge bas = new Knowledge();
         bas.readMain("C:\\Users\\ROG\\Desktop\\aidraw\\src\\main\\resources\\standard");
         bas.readSec("C:\\Users\\ROG\\Desktop\\aidraw\\src\\main\\resources\\titlestore\\Second.json");
         bas.readThd("C:\\Users\\ROG\\Desktop\\aidraw\\src\\main\\resources\\titlestore\\Third.json");
 
-        List<Map<String, Object>> finalExtractList = new ArrayList<>();
-        ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
+        List<Map<String, Map<String, Object>>> finalExtractList = new ArrayList<>();
 
-        if (!inputFolder.exists() || !inputFolder.isDirectory()) {
-            System.err.println("错误：输入文件夹不存在或不是一个目录: " + inputFolder.getAbsolutePath());
-            return;
+        InputOutput io = new InputOutput();
+
+        Map<String, Object> tep = io.loadjson(inputFolder);
+        if (tep.containsKey("检验项目")) {
+            finalExtractList = JianYanProcessor.process(tep);
         }
 
-        for (File file : Objects.requireNonNull(inputFolder.listFiles())) {
-            if (file.isFile() && file.getName().endsWith(".json")) {
-                System.out.println("正在处理文件: " + file.getName());
-                JsonNode rootNode = objectMapper.readTree(file);
-
-                if (rootNode.has("检验项目")) {
-                    finalExtractList.addAll(JianYanProcessor.process(rootNode));
-                } else if (rootNode.has("检查所见") || rootNode.has("检查结论")) {
-                    finalExtractList.addAll(JianChaProcessor.process(rootNode));
-                } else {
-                    System.out.println("无法识别的文件类型: " + file.getName());
-                }
-            }
-        }
-
-        System.out.println("\n--- 所有文件处理完成，最终的JSON列表如下 ---");
-        String jsonOutput = objectMapper.writeValueAsString(finalExtractList);
-        List<result> organMapp = new ArrayList<>();
-        bas.query(finalExtractList, organMapp);
-
-        System.out.println(jsonOutput);
+        List<Result> organMap = new ArrayList<>();
+        bas.query(finalExtractList, organMap);
+        System.out.println(organMap);
     }
 }

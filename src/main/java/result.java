@@ -1,8 +1,14 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import org.json.JSONArray;
 
-public class result {
+public class Result {
     public String title;
-    public List<Map<String, Object>> subrep = new ArrayList<>();
+    public JSONArray subrep = new JSONArray();
+
+    @Override
+    public String toString() {
+        return "Result{" +
+                "title='" + title + '\'' +
+                ", subrep=" + subrep +
+                '}';
+    }
 }
