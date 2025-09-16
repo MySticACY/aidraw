@@ -15,7 +15,7 @@ public class Main {
 
         List<Map<String, Map<String, Object>>> finalExtractList = new ArrayList<>();
 
-        InputOutput io = new InputOutput();
+        Input io = new Input();
 
         Map<String, Object> tep = io.loadjson(inputFolder);
         if (tep.containsKey("检验项目")) {

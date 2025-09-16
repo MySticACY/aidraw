@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class InputOutput {
+public class Input {
     public Map<String, Object> loadjson(String filePath){
         try {
             ObjectMapper mapper = new ObjectMapper();

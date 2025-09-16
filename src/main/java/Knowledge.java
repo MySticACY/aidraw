@@ -11,7 +11,7 @@ public class Knowledge {
     private final Map<String, Object> sec = new HashMap<>();
     private final Map<String, Object> thd = new HashMap<>();
 
-    InputOutput io = new InputOutput();
+    Input io = new Input();
 
     public void readMain(String path){
         File dir = new File(path);
