@@ -24,6 +24,9 @@ public class Main {
 
         List<Result> organMap = new ArrayList<>();
         bas.query(finalExtractList, organMap);
-        System.out.println(organMap);
+        
+        for(Result re: organMap){
+            System.out.println(re);
+        }
     }
 }

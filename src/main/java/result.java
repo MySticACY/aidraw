@@ -6,9 +6,7 @@ public class Result {
 
     @Override
     public String toString() {
-        return "Result{" +
-                "title='" + title + '\'' +
-                ", subrep=" + subrep +
-                '}';
+        return "organ='" + title + '\'' +
+                ", subrep=" + subrep;
     }
 }
