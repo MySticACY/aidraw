@@ -3,6 +3,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONObject;
+
 public class Main {
 
     public static void main(String[] args) throws IOException {
@@ -17,7 +19,9 @@ public class Main {
 
         Input io = new Input();
 
-        Map<String, Object> tep = io.loadjson(inputFolder);
+        //Map<String, Object> tep = io.loadjson(inputFolder);
+        JSONObject jsonData = io.readJson(inputFolder);
+        Map<String, Object> tep = jsonData.toMap();
         if (tep.containsKey("检验项目")) {
             finalExtractList = JianYanProcessor.process(tep);
         }
