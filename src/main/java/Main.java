@@ -22,12 +22,15 @@ public class Main {
         //Map<String, Object> tep = io.loadjson(inputFolder);
         JSONObject jsonData = io.readJson(inputFolder);
         Map<String, Object> tep = jsonData.toMap();
+
         if (tep.containsKey("检验项目")) {
             finalExtractList = JianYanProcessor.process(tep);
         }
         else{
             finalExtractList = TiJianProcessor.process(bas, tep);
         }
+
+        //System.out.println(finalExtractList);
 
         List<Result> organMap = new ArrayList<>();
         bas.query(finalExtractList, organMap);

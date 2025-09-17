@@ -24,7 +24,7 @@ public class Input {
         try (FileReader reader = new FileReader(filePath)) {
             JSONTokener tokener = new JSONTokener(reader);
             JSONObject jsonData = new JSONObject(tokener);
-            
+
             return jsonData;
             
         } catch (IOException e) {

@@ -7,20 +7,13 @@ public class TiJianProcessor {
     public static List<Map<String, Map<String, Object>>> process(Knowledge bas, Map<String, Object> data) {
 
         List<Map<String, Map<String, Object>>> extractList = new ArrayList<>();
-        String hospital = "", time = "";
+        Map<String, Object> message = (Map<String, Object>) data.get("基础信息");
+
+        String hospital = message.get("医疗机构").toString();
+        String time = message.get("报告日期").toString();
 
         for(String key: data.keySet()){
-            if(key.equals("基础信息")){
-                for(String subKey: ((Map<String, Object>)data.get(key)).keySet()){
-                    if(subKey.equals("医疗机构")){
-                        hospital = ((Map<String, Object>)data.get(key)).get(subKey).toString();
-                    }
-                    else if(subKey.equals("报告日期")){
-                        time = ((Map<String, Object>)data.get(key)).get(subKey).toString();
-                    }
-                }
-            }
-            else if(bas.sec.containsKey(key)){
+            if(bas.sec.containsKey(key)){
                 List<Map<String, Object>> items = (List<Map<String, Object>>) data.get(key);
                 for(Map<String, Object> item: items){
                     Map<String, Map<String, Object>> record = new java.util.HashMap<>();
