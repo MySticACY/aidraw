@@ -12,13 +12,12 @@ public class Same {
                 break;
             }
         }
-        if (!found) {
-            organMap.add(new Result() {
-                {
-                    title = organ;
-                    subrep.put(tep);
-                }
-            });
-        }
+        if (found) return;
+        organMap.add(new Result() {
+            {
+                title = organ;
+                subrep.put(tep);
+            }
+        });
     }
 }

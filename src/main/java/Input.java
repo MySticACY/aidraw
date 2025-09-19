@@ -26,7 +26,6 @@ public class Input {
             JSONObject jsonData = new JSONObject(tokener);
 
             return jsonData;
-            
         } catch (IOException e) {
             System.err.println("读取JSON文件失败: " + e.getMessage());
             return new JSONObject();

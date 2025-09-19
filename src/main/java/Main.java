@@ -20,7 +20,6 @@ public class Main {
 
         Input io = new Input();
 
-        //Map<String, Object> tep = io.loadjson(inputFolder);
         JSONObject jsonData = io.readJson(inputFolder);
         Map<String, Object> tep = jsonData.toMap();
         List<Result> organMap = new ArrayList<>();
@@ -31,9 +30,6 @@ public class Main {
         else{
             finalExtractList = TiJianProcessor.process(bas, tep, organMap);
         }
-
-        //System.out.println(finalExtractList);
-
 
         bas.query(finalExtractList, organMap);
         
