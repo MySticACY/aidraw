@@ -10,6 +10,7 @@ public class Knowledge {
     public final Map<String, Object> sum = new HashMap<>();
     public final Map<String, Object> sec = new HashMap<>();
     public final Map<String, Object> thd = new HashMap<>();
+    public final Map<String, Object> foth = new HashMap<>();
 
     Input io = new Input();
 
@@ -48,6 +49,13 @@ public class Knowledge {
         }
     }
 
+    public void readFoth(String path){
+        Map<String, Object> tep = io.loadjson(path);
+        for(String key: tep.keySet()){
+            this.foth.put(key,tep.get(key));
+        }
+    }
+
     @SuppressWarnings("CollectionsToArray")
     public void query(List<Map<String, Map<String, Object>>> ext,  List<Result> organMap){
         for(Map<String, Map<String, Object>> sub: ext){
@@ -66,24 +74,11 @@ public class Knowledge {
                 ArrayList<String> list = (ArrayList<String>)this.sum.get(zhibiao.get("项目名称").toString());
                 relatedOrgans = list.toArray(new String[list.size()]);
             }
-            JSONObject tep = new JSONObject(sub);    
+            JSONObject tep = new JSONObject(sub);  
+            Same sa = new Same(); 
 
             for(String organ: relatedOrgans){
-                boolean found = false;
-                for(Result res: organMap){
-                    if(res.title.equals(organ)){
-                        found = true;
-                        res.subrep.put(tep);
-                        break;
-                    }
-                }
-                if(found) continue;
-                organMap.add(new Result(){
-                    {
-                        title = organ;
-                        subrep.put(tep);
-                    }
-                });
+                sa.add_result(organ, tep, organMap);
             }
         }
     }

@@ -14,6 +14,7 @@ public class Main {
         bas.readMain("C:\\Users\\ROG\\Desktop\\aidraw\\src\\main\\resources\\standard");
         bas.readSec("C:\\Users\\ROG\\Desktop\\aidraw\\src\\main\\resources\\titlestore\\Second.json");
         bas.readThd("C:\\Users\\ROG\\Desktop\\aidraw\\src\\main\\resources\\titlestore\\Third.json");
+        bas.readFoth("C:\\Users\\ROG\\Desktop\\aidraw\\src\\main\\resources\\titlestore\\Forth.json");
 
         List<Map<String, Map<String, Object>>> finalExtractList;
 
@@ -22,17 +23,18 @@ public class Main {
         //Map<String, Object> tep = io.loadjson(inputFolder);
         JSONObject jsonData = io.readJson(inputFolder);
         Map<String, Object> tep = jsonData.toMap();
+        List<Result> organMap = new ArrayList<>();
 
         if (tep.containsKey("检验项目")) {
             finalExtractList = JianYanProcessor.process(tep);
         }
         else{
-            finalExtractList = TiJianProcessor.process(bas, tep);
+            finalExtractList = TiJianProcessor.process(bas, tep, organMap);
         }
 
         //System.out.println(finalExtractList);
 
-        List<Result> organMap = new ArrayList<>();
+
         bas.query(finalExtractList, organMap);
         
         for(Result re: organMap){
