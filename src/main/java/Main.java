@@ -8,7 +8,7 @@ import org.json.JSONObject;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        String inputFolder = "C:\\Users\\ROG\\Desktop\\aidraw\\src\\main\\resources\\sample\\pic4.json";
+        String inputFolder = "C:\\Users\\ROG\\Desktop\\aidraw\\src\\main\\resources\\sample\\jianyan\\pic1.json";
 
         Knowledge bas = new Knowledge();
         bas.readMain("C:\\Users\\ROG\\Desktop\\aidraw\\src\\main\\resources\\standard");
